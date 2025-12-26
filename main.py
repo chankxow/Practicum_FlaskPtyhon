@@ -26,7 +26,6 @@ def index():
                            name=name, 
                            time=time,
                            news_items=news_items.values())
-
 @app.route('/news/<id>/')
 def show_news_item(id):
     news_item = news_items[int(id)]
