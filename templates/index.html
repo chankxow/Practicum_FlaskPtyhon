@@ -1,20 +1,123 @@
-<html>
-  <body>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Feed</title>
+    <style>
+        /* ตั้งค่าพื้นฐานและสี */
+        :root {
+            --primary-color: #4a90e2;
+            --bg-color: #f0f2f5;
+            --text-dark: #1c1e21;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        h1 { color: var(--primary-color); margin-top: 0; }
+        .time-label { color: #65676b; font-size: 0.9rem; margin-bottom: 20px; }
+
+        /* ตกแต่งรายการข่าว (List) */
+        ul { list-style: none; padding: 0; margin: 20px 0; }
+        li {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+        li:hover { background: #f9f9f9; }
+        li a {
+            text-decoration: none;
+            color: #212529;
+            font-weight: 500;
+        }
+        li a:hover { color: var(--primary-color); }
+
+        /* ตกแต่งฟอร์ม (Form) */
+        form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        input[name="title"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box; /* สำคัญ: ทำให้ padding ไม่ดันขนาด input */
+        }
+        textarea { height: 100px; resize: vertical; }
+
+        input[type="submit"] {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+        }
+        input[type="submit"]:hover { background: #357abd; }
+
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .home-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
     <h1>Hello!! {{ name }}</h1>
-    Hi. This is {{ time }}.  This is recent news.
+    <div class="time-label">Hi. This is {{ time }}. This is recent news.</div>
+
     <ul>
-      {% for item in news_items %}
+        {% for item in news_items %}
         <li>
-          <a href="{{ url_for('show_news_item', id=item.id) }}">{{ item.title }}</a>
+            <a href="{{ url_for('show_news_item', id=item.id) }}">{{ item.title }}</a>
         </li>
-      {% endfor %}
-    </ul> 
+        {% endfor %}
+    </ul>
 
     <form action="{{ url_for('create_news_item') }}" method="POST">
-      Title: <input name="title"/><br />
-      Body: <textarea name="body"></textarea><br />
-      <input type="submit" value="Save"/>
+        <strong>Create New Post</strong><br>
+        <label>Title:</label>
+        <input name="title" placeholder="หัวข้อข่าว..."/>
+        
+        <label>Body:</label>
+        <textarea name="body" placeholder="เนื้อหาข่าว..."></textarea>
+        
+        <input type="submit" value="Save Post"/>
     </form>
-    <a href="../">Home</a>
-  </body>
+
+    <a href="/" class="home-link">← Back to Home</a>
+</div>
+
+</body>
 </html>
